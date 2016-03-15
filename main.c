@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-/* The main thing that this program does. */
 int main(int argc, char* argv[argc+1]) {
     for (int i = 1; i < argc; i++) {
         puts(argv[i]);
