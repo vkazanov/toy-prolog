@@ -9,12 +9,12 @@ CFLAGS ?= -Wall \
     -Wno-unused-parameter \
     -pedantic -std=c11
 
-all: myapp
+all: testc
 
 clean:
-	rm *.o myapp
+	rm *.o testc
 
-myapp: main.o
+testc: main.o
 	$(CC) $(CFLAGS) $^ -o $@
 
 %.o: %.c
