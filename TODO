@@ -1,7 +1,17 @@
 
  - [X] port main
 
- - [ ] port procFile
+ - [-] port procFile
+
+   - [X] skel
+
+   - [ ] parsing
+
+   - [ ] search?
+
+   - [ ] Term?
+
+   - [ ] Rule?
 
  - [ ] port Term
 
