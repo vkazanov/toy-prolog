@@ -7,6 +7,7 @@
 #include <regex.h>
 
 void fail(const char* error);
+void quit();
 void proc_file(FILE* stream, char* delim);
 void trim(char* str);
 void remove_comments(char* buf);
@@ -32,6 +33,10 @@ int main (int argc, char* argv[argc+1]) {
 void fail(const char* error) {
     perror(error);
     exit(EXIT_FAILURE);
+}
+
+void quit() {
+    exit(EXIT_SUCCESS);
 }
 
 void proc_file(FILE* stream, char* prompt) {
@@ -69,10 +74,24 @@ void proc_file(FILE* stream, char* prompt) {
             punc = '.';
         }
 
+        /* Main choices */
+        if (strcmp(buf, "trace=0") == 0) {
+            /* TODO: trace on*/
+        } else if (strcmp(buf, "trace=1") == 0) {
+            /* TODO: trace off*/
+        } else if (strcmp(buf, "quit") == 0) {
+            /* TODO: quit*/
+        } else if (strcmp(buf, "dump")) {
+            /* TODO: dump*/
+        } else if (punc == '?') {
+            /* TODO: Term*/
+        } else {
+            /* TODO: Rule*/
+        }
+
         printf("buf = '%s'", buf);
         printf("punc = '%c'", punc);
 
-        /* TODO: punc */
         /* TODO: trace/quit */
         /* TODO: rules dump */
         /* TODO: rule add */
