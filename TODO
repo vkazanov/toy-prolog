@@ -1,22 +1,18 @@
 
  - [X] port main
 
- - [-] port procFile
+ - [X] port procFile
 
    - [X] skel
 
-   - [ ] parsing
-
-   - [ ] search?
-
-   - [ ] Term?
-
-   - [ ] Rule?
-
- - [ ] port Term
+   - [X] parsing
 
  - [ ] port Rule
+
+ - [ ] port Term
 
  - [ ] port unify
 
  - [ ] port search
+
+ - [ ] use a better rule container (a linked list or something)

@@ -6,6 +6,19 @@
 #include <string.h>
 #include <regex.h>
 
+bool trace = false;
+
+struct Rule {
+    char* descr;
+};
+typedef struct Rule Rule;
+
+Rule rules[256];
+size_t rule_count = 0;
+
+void rule_init(Rule* rule, char* descr);
+void rule_print(Rule* rule);
+
 void fail(const char* error);
 void quit();
 void proc_file(FILE* stream, char* delim);
@@ -76,21 +89,21 @@ void proc_file(FILE* stream, char* prompt) {
 
         /* Main choices */
         if (strcmp(buf, "trace=0") == 0) {
-            /* TODO: trace on*/
+            trace = false;
         } else if (strcmp(buf, "trace=1") == 0) {
-            /* TODO: trace off*/
+            trace = true;
         } else if (strcmp(buf, "quit") == 0) {
-            /* TODO: quit*/
-        } else if (strcmp(buf, "dump")) {
-            /* TODO: dump*/
+            quit();
+        } else if (strcmp(buf, "dump") == 0) {
+            for (size_t i = 0; i < rule_count; i++) {
+                rule_print(&rules[i]);
+            }
         } else if (punc == '?') {
             /* TODO: Term*/
         } else {
-            /* TODO: Rule*/
+            rule_init(&rules[rule_count], strdup(buf));
+            rule_count++;
         }
-
-        printf("buf = '%s'", buf);
-        printf("punc = '%c'", punc);
 
         /* TODO: trace/quit */
         /* TODO: rules dump */
@@ -131,4 +144,12 @@ void remove_comments(char* buf) {
     if (regexec(&regex, buf, 1, regmatch, 0) == 0) {
         buf[regmatch[0].rm_so] = '\0';
     }
+}
+
+void rule_init(Rule* rule, char* descr) {
+    rule->descr = descr;
+}
+
+void rule_print(Rule* rule) {
+    printf("Rule: descr = %s\n", rule->descr);
 }
