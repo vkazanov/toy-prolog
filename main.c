@@ -9,15 +9,26 @@
 bool trace = false;
 
 struct Rule {
-    char* descr;
+    char* str;
 };
 typedef struct Rule Rule;
 
 Rule rules[256];
 size_t rule_count = 0;
 
-void rule_init(Rule* rule, char* descr);
+void rule_init(Rule* rule, char* str);
 void rule_print(Rule* rule);
+
+struct Term {
+    char* str;
+    char* pred;
+    char* args[256];
+    size_t arg_count;
+};
+typedef struct Term Term;
+
+void term_init(Term* term, char* str);
+void term_print(Term* term);
 
 void fail(const char* error);
 void quit();
@@ -27,6 +38,10 @@ void remove_comments(char* buf);
 void strip_whitespace(char* buf);
 
 int main (int argc, char* argv[argc+1]) {
+    Term term;
+    term_init(&term,argv[1]);
+    term_print(&term);
+    return EXIT_SUCCESS;
     for (int i = 1; i < argc; i++) {
         char* filename = argv[i];
         if (strcmp(filename, ".") == 0) {
@@ -146,10 +161,73 @@ void remove_comments(char* buf) {
     }
 }
 
-void rule_init(Rule* rule, char* descr) {
-    rule->descr = descr;
+void rule_init(Rule* rule, char* str) {
+    rule->str = str;
 }
 
 void rule_print(Rule* rule) {
-    printf("Rule: descr = %s\n", rule->descr);
+    printf("Rule: str = %s\n", rule->str);
+}
+
+void term_init(Term* term, char* str) {
+    term->str = NULL;
+    term->arg_count = 0;
+
+    /* expect x(y,z...) */
+    size_t strsize = strlen(str);
+    char buf[256];
+
+    /* Should end with ) */
+    if (str[strsize - 1] != ')') {
+        sprintf(buf, "Syntax error in term: %s 0", str);
+        fail(buf);
+    }
+
+    /* Should start with a predicate name ( */
+    char* pred = strdup(strtok(str, "("));
+    if (pred == NULL) {
+        sprintf(buf, "Syntax error in term: %s 1", str);
+        fail(buf);
+    }
+
+    /* Predicate args */
+    char* args_str = strdup(strtok(NULL, "("));
+    if (args_str == NULL) {
+        sprintf(buf, "Syntax error in term: %s 2", str);
+        fail(buf);
+    }
+
+    /* Strip the rightmost paren */
+    args_str[strlen(args_str)-1] = '\0';
+
+    /* Split args */
+    char* token = strtok(args_str, ",");
+    if (token != NULL) {
+        term->args[term->arg_count] = strdup(token);
+        term->arg_count++;
+        for (;;) {
+            token = strtok(NULL, ",");
+            if (token == NULL) {
+                break;
+            }
+            term->args[term->arg_count] = strdup(token);
+            term->arg_count++;
+        }
+    }
+
+    term->pred = pred;
+    term->str = str;
+
+    free(args_str);
+}
+
+void term_print(Term* term) {
+    printf("%s(", term->pred);
+    for (size_t i = 0; i < term->arg_count; i++) {
+        printf("%s", term->args[i]);
+        if (i+1 != term->arg_count) {
+            printf(",");
+        }
+    }
+    printf(")\n");
 }

@@ -7,12 +7,20 @@
 
    - [X] parsing
 
- - [ ] port Rule
+ - [X] port Term
 
- - [ ] port Term
+   - [X] skeleton
+
+   - [X] parse
+
+   - [X] handle parse errors
+
+ - [ ] port Rule
 
  - [ ] port unify
 
  - [ ] port search
 
- - [ ] use a better rule container (a linked list or something)
+ - [ ] use a better way to hold multiple fields (see rules/term/rule)
+
+ - [ ] run through Valgrind
