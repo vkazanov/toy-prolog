@@ -15,7 +15,11 @@
 
    - [X] handle parse errors
 
+ - [ ] port Goal
+
  - [ ] port Rule
+
+ - [ ] reorganize files a bit and update Makefile
 
  - [ ] port unify
 
