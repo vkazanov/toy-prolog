@@ -17,7 +17,7 @@ all: $(EXECUTABLE)
 
 
 $(EXECUTABLE): $(OBJECTS)
-	$(CC) $(CFLAGS) $^ -o $@
+	$(CC) $^ -o $@
 
 %.o: %.c
 	$(CC) -c $< $(CFLAGS)
