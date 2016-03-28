@@ -15,16 +15,26 @@
 
    - [X] handle parse errors
 
- - [ ] port Goal
+ - [X] port Rule
 
- - [ ] port Rule
+   - [X] head
+
+   - [X] goals
+
+   - [X] print
+
+   - [X] test
 
  - [ ] reorganize files a bit and update Makefile
+
+ - [ ] port Goal
 
  - [ ] port unify
 
  - [ ] port search
 
  - [ ] use a better way to hold multiple fields (see rules/term/rule)
+
+ - [ ] user input error handling
 
  - [ ] run through Valgrind

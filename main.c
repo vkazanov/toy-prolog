@@ -8,10 +8,15 @@
 
 bool trace = false;
 
+typedef struct Rule Rule;
+typedef struct Term Term;
+
 struct Rule {
     char* str;
+    Term* head;
+    Term* goals[256];
+    size_t goal_count;
 };
-typedef struct Rule Rule;
 
 Rule rules[256];
 size_t rule_count = 0;
@@ -25,7 +30,6 @@ struct Term {
     char* args[256];
     size_t arg_count;
 };
-typedef struct Term Term;
 
 void term_init(Term* term, char* str);
 void term_print(Term* term);
@@ -38,9 +42,9 @@ void remove_comments(char* buf);
 void strip_whitespace(char* buf);
 
 int main (int argc, char* argv[argc+1]) {
-    Term term;
-    term_init(&term,argv[1]);
-    term_print(&term);
+    Rule rule;
+    rule_init(&rule,argv[1]);
+    rule_print(&rule);
     return EXIT_SUCCESS;
     for (int i = 1; i < argc; i++) {
         char* filename = argv[i];
@@ -162,20 +166,75 @@ void remove_comments(char* buf) {
 }
 
 void rule_init(Rule* rule, char* str) {
-    rule->str = str;
+    /* expect "term-:term;term;..." */
+
+    char buf[256];
+    rule->str = NULL;
+    rule->goal_count = 0;
+
+    /* Parse head */
+    char* saveptr;
+    char* head_str = strtok_r(str, ":-", &saveptr);
+    if (head_str == NULL) {
+        sprintf(buf, "Syntax error in rule: %s 0", str);
+        fail(buf);
+    }
+
+    Term* term = malloc(sizeof(Term));
+    term_init(term, head_str);
+    rule->head = term;
+
+    /* Get the goals string */
+    char* goals_str = strtok_r(NULL, ":-", &saveptr);
+    if (goals_str == NULL) {
+        /* No goals for this rule */
+        return;
+    }
+
+    /* Replace ), with ); to make it easier to just split */
+    char* cur_str = goals_str;
+    while ( (cur_str = strstr(cur_str, "),")) != NULL) {
+        cur_str[1] = ';';
+    }
+
+    /* Parse the goals */
+    char* goal_str = strtok_r(goals_str, ";", &saveptr);
+    term = malloc(sizeof(Term));
+    term_init(term, goal_str);
+    rule->goals[rule->goal_count] = term;
+    rule->goal_count++;
+    for (;;) {
+        goal_str = strtok_r(NULL, ";", &saveptr);
+        if (goal_str == NULL) {
+            break;
+        }
+        term = malloc(sizeof(Term));
+        term_init(term, goal_str);
+        rule->goals[rule->goal_count] = term;
+        rule->goal_count++;
+    }
 }
 
 void rule_print(Rule* rule) {
-    printf("Rule: str = %s\n", rule->str);
+    term_print(rule->head);
+    printf(" :- ");
+    for (size_t i = 0; i < rule->goal_count; i++) {
+        term_print(rule->goals[i]);
+        if (i + 1 < rule->goal_count) {
+            printf(",");
+        }
+    }
 }
 
 void term_init(Term* term, char* str) {
+    /* printf("term_init from \"%s\"\n", str); */
+    /* expect x(y,z...) */
+
+    char buf[256];
     term->str = NULL;
     term->arg_count = 0;
 
-    /* expect x(y,z...) */
     size_t strsize = strlen(str);
-    char buf[256];
 
     /* Should end with ) */
     if (str[strsize - 1] != ')') {
