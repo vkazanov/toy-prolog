@@ -9,7 +9,7 @@ CFLAGS ?= -Wall \
     -Wno-unused-parameter \
     -pedantic -std=c11
 
-SOURCES=main.c
+SOURCES=main.c data.c util.c
 OBJECTS=$(SOURCES:.c=.o)
 EXECUTABLE=testc
 

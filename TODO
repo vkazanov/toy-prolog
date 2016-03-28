@@ -25,13 +25,15 @@
 
    - [X] test
 
- - [ ] reorganize files a bit and update Makefile
+ - [X] reorganize files a bit and update Makefile
 
  - [ ] port Goal
 
  - [ ] port unify
 
  - [ ] port search
+
+ - [ ] how to organize tests in C?
 
  - [ ] use a better way to hold multiple fields (see rules/term/rule)
 
