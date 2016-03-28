@@ -47,13 +47,6 @@ void proc_file(FILE* stream, char* prompt) {
         getline(&buf, &bytes_to_read, stream);
 
         trim(buf);
-
-        /* Empty line? stop */
-        if (strcmp(buf, "") == 0) {
-            free(buf);
-            break;
-        }
-
         remove_comments(buf);
         strip_whitespace(buf);
 
@@ -84,13 +77,13 @@ void proc_file(FILE* stream, char* prompt) {
                 rule_print(&rules[i]);
             }
         } else if (punc == '?') {
-            /* TODO: Term*/
+            /* TODO */
         } else {
             rule_init(&rules[rule_count], strdup(buf));
             rule_count++;
         }
 
-        /* TODO: trace/quit */
+        /* TODO: Term (see the question mark)*/
         /* TODO: rules dump */
         /* TODO: rule add */
         /* TODO: search */
