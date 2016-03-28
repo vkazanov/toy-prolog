@@ -9,15 +9,20 @@ CFLAGS ?= -Wall \
     -Wno-unused-parameter \
     -pedantic -std=c11
 
-all: testc
+SOURCES=main.c
+OBJECTS=$(SOURCES:.c=.o)
+EXECUTABLE=testc
 
-clean:
-	rm *.o testc
+all: $(EXECUTABLE)
 
-testc: main.o
+
+$(EXECUTABLE): $(OBJECTS)
 	$(CC) $(CFLAGS) $^ -o $@
 
 %.o: %.c
 	$(CC) -c $< $(CFLAGS)
+
+clean:
+	rm *.o $(EXECUTABLE)
 
 .PHONY: clean
