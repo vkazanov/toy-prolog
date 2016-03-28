@@ -2,6 +2,7 @@
 
 typedef struct Rule Rule;
 typedef struct Term Term;
+typedef struct Goal Goal;
 
 struct Rule {
     char* str;
@@ -23,3 +24,16 @@ struct Term {
 
 void term_init(Term* term, char* str);
 void term_print(Term* term);
+
+struct Goal {
+    size_t id;
+    Rule* rule;
+
+    void* parent;
+    void* env;
+
+    size_t inx;
+};
+
+void goal_init(Goal* goal, Rule* rule);
+void goal_print(Goal* goal);

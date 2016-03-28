@@ -27,7 +27,17 @@
 
  - [X] reorganize files a bit and update Makefile
 
- - [ ] port Goal
+ - [-] port Goal
+
+   - [X] the struct
+
+   - [X] init
+
+   - [X] print
+
+   - [ ] env
+
+   - [ ] parent
 
  - [ ] port unify
 

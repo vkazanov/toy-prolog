@@ -131,3 +131,15 @@ void term_print(Term* term) {
     }
     printf(")\n");
 }
+
+void goal_init(Goal* goal, Rule* rule) {
+    static size_t goal_id = 0;
+    goal->id = goal_id;
+    goal->rule = rule;
+    goal->inx = 0;
+    goal_id += 1;
+}
+
+void goal_print(Goal* goal) {
+    printf("Goal %d inx=%d", goal->id, goal->inx);
+}
