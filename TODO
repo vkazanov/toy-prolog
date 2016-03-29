@@ -27,7 +27,7 @@
 
  - [X] reorganize files a bit and update Makefile
 
- - [-] port Goal
+ - [X] port Goal
 
    - [X] the struct
 
@@ -35,9 +35,27 @@
 
    - [X] print
 
-   - [ ] env
+ - [-] Goal/env
 
-   - [ ] parent
+   - [X] interface
+
+   - [X] init
+
+   - [X] print
+
+   - [X] get
+
+   - [X] set
+
+   - [X] has
+
+   - [ ] copy
+
+   - [ ] test all
+
+ - [ ] Goal/parent
+
+ - [ ] Goal, again
 
  - [ ] port unify
 
@@ -45,7 +63,7 @@
 
  - [ ] how to organize tests in C?
 
- - [ ] use a better way to hold multiple fields (see rules/term/rule)
+ - [ ] use a better way to hold multiple fields (see rules/term/rule)?
 
  - [ ] user input error handling
 

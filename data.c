@@ -141,5 +141,5 @@ void goal_init(Goal* goal, Rule* rule) {
 }
 
 void goal_print(Goal* goal) {
-    printf("Goal %d inx=%d", goal->id, goal->inx);
+    printf("Goal %zu inx=%zu", goal->id, goal->inx);
 }
