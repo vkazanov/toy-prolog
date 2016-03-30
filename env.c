@@ -1,9 +1,11 @@
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <string.h>
 #include "env.h"
 
-void env_init(Env* env) {
+int env_init(Env* env) {
     env->count = 0;
+    return 0;
 }
 
 void env_print(Env* env) {
@@ -26,14 +28,25 @@ char* env_get(Env* env, const char* key) {
     return NULL;
 }
 
-bool env_set(Env* env, char* key, char* value) {
+int env_set(Env* env, char* key, char* value) {
     size_t count = env->count;
     env->keys[count] = key;
     env->values[count] = value;
     env->count++;
-    return true;
+    return 0;
 }
 
 bool env_has(Env* env, const char* key) {
     return env_get(env, key) != NULL;
+}
+
+Env* env_copy(const Env* env_orig) {
+    Env* env_new = malloc(sizeof(env_new));
+    env_init(env_new);
+    for (size_t i = 0; i < env_orig->count; i++) {
+        char* key = env_orig->keys[i];
+        char* value = env_orig->values[i];
+        env_set(env_new, strdup(key), strdup(value));
+    }
+    return env_new;
 }

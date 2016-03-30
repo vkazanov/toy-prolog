@@ -11,9 +11,9 @@ struct Env {
     size_t count;
 };
 
-void env_init(Env* env);
+int env_init(Env* env);
 void env_print(Env* env);
 char* env_get(Env* env, const char* key);
-bool env_set(Env* env, char* key, char* value);
+int env_set(Env* env, char* key, char* value);
 bool env_has(Env* env, const char* key);
-bool env_copy(Env* env, const char* key);
+Env* env_copy(const Env* env_orig);
