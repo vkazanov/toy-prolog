@@ -49,11 +49,19 @@
 
    - [X] has
 
-   - [ ] copy
+   - [X] copy
 
-   - [ ] test all
+   - [ ] env_init -> env_new
 
- - [ ] Goal/parent
+   - [ ] rule_init -> rule_new
+
+   - [ ] term_init -> term_new
+
+ - [ ] Goal/parent (parent is a goal)
+
+   - [ ] goal_init -> goal_new
+
+   - [ ] goal_copy
 
  - [ ] Goal, again
 
