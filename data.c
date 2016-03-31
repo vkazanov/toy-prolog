@@ -10,7 +10,7 @@ void rule_init(Rule* rule, char* str) {
     /* expect "term-:term;term;..." */
 
     char buf[256];
-    rule->str = NULL;
+    rule->str = strdup(str);
     rule->goal_count = 0;
 
     /* Parse head */
@@ -67,12 +67,18 @@ void rule_print(Rule* rule) {
     }
 }
 
+Rule* rule_copy(Rule* orig_rule) {
+    Rule* new_rule = malloc(sizeof(new_rule));
+    rule_init(new_rule, orig_rule->str);
+    return new_rule;
+}
+
 void term_init(Term* term, char* str) {
     /* printf("term_init from \"%s\"\n", str); */
     /* expect x(y,z...) */
 
     char buf[256];
-    term->str = NULL;
+    term->str = strdup(str);
     term->arg_count = 0;
 
     size_t strsize = strlen(str);
@@ -116,7 +122,6 @@ void term_init(Term* term, char* str) {
     }
 
     term->pred = pred;
-    term->str = str;
 
     free(args_str);
 }
@@ -132,6 +137,12 @@ void term_print(Term* term) {
     printf(")\n");
 }
 
+Term* term_copy(Term* orig_term) {
+    Term* new_term = malloc(sizeof(new_term));
+    term_init(new_term, orig_term->str);
+    return new_term;
+}
+
 void goal_init(Goal* goal, Rule* rule) {
     static size_t goal_id = 0;
     goal->id = goal_id;
@@ -142,4 +153,11 @@ void goal_init(Goal* goal, Rule* rule) {
 
 void goal_print(Goal* goal) {
     printf("Goal %zu inx=%zu", goal->id, goal->inx);
+}
+
+Goal* goal_copy(Goal* orig_goal) {
+    Goal* new_goal = malloc(sizeof(new_goal));
+    goal_init(new_goal, rule_copy(orig_goal->rule));
+    new_goal->inx = orig_goal->inx;
+    return new_goal;
 }

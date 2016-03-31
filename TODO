@@ -55,6 +55,8 @@
 
    - [ ] goal_copy
 
+   - [ ] rule_copy
+
  - [ ] goal_init -> goal_new
 
  - [ ] env_init -> env_new
