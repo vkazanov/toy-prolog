@@ -143,11 +143,19 @@ Term* term_copy(Term* orig_term) {
     return new_term;
 }
 
-void goal_init(Goal* goal, Rule* rule) {
+void goal_init(Goal* goal, Rule* rule, Goal* parent, Env* env) {
     static size_t goal_id = 0;
     goal->id = goal_id;
     goal->rule = rule;
     goal->inx = 0;
+    goal->parent = parent;
+    if (env == NULL) {
+        Env* new_env = malloc(sizeof(new_env));
+        env_init(new_env);
+        goal->env = new_env;
+    } else {
+        goal->env = env_copy(env);
+    }
     goal_id += 1;
 }
 
@@ -157,7 +165,9 @@ void goal_print(Goal* goal) {
 
 Goal* goal_copy(Goal* orig_goal) {
     Goal* new_goal = malloc(sizeof(new_goal));
-    goal_init(new_goal, rule_copy(orig_goal->rule));
+    goal_init(new_goal, rule_copy(orig_goal->rule), NULL, orig_goal->env);
     new_goal->inx = orig_goal->inx;
+    new_goal->env = env_copy(orig_goal->env);
+    new_goal->parent = orig_goal->parent != NULL ? goal_copy(orig_goal->parent) : NULL;
     return new_goal;
 }

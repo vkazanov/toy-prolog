@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include "env.h"
 
 typedef struct Rule Rule;
 typedef struct Term Term;
@@ -22,8 +23,8 @@ struct Goal {
     size_t id;
     Rule* rule;
 
-    void* parent;
-    void* env;
+    Goal* parent;
+    Env* env;
 
     size_t inx;
 };
@@ -36,6 +37,6 @@ void term_init(Term* term, char* str);
 void term_print(Term* term);
 Term* term_copy(Term* term);
 
-void goal_init(Goal* goal, Rule* rule);
+void goal_init(Goal* goal, Rule* rule, Goal* parent, Env* env);
 void goal_print(Goal* goal);
 Goal* goal_copy(Goal* goal);

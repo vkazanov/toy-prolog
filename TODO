@@ -57,6 +57,12 @@
 
    - [X] rule_copy
 
+ - [X] Goal, again
+
+ - [ ] port unify
+
+ - [ ] port search
+
  - [ ] goal_init -> goal_new
 
  - [ ] env_init -> env_new
@@ -64,12 +70,6 @@
  - [ ] rule_init -> rule_new
 
  - [ ] term_init -> term_new
-
- - [ ] Goal, again
-
- - [ ] port unify
-
- - [ ] port search
 
  - [ ] how to organize tests in C?
 
