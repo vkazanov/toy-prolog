@@ -11,19 +11,12 @@ struct Rule {
     size_t goal_count;
 };
 
-
-void rule_init(Rule* rule, char* str);
-void rule_print(Rule* rule);
-
 struct Term {
     char* str;
     char* pred;
     char* args[256];
     size_t arg_count;
 };
-
-void term_init(Term* term, char* str);
-void term_print(Term* term);
 
 struct Goal {
     size_t id;
@@ -34,6 +27,12 @@ struct Goal {
 
     size_t inx;
 };
+
+void rule_init(Rule* rule, char* str);
+void rule_print(Rule* rule);
+
+void term_init(Term* term, char* str);
+void term_print(Term* term);
 
 void goal_init(Goal* goal, Rule* rule);
 void goal_print(Goal* goal);

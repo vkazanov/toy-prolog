@@ -51,17 +51,17 @@
 
    - [X] copy
 
-   - [ ] env_init -> env_new
-
-   - [ ] rule_init -> rule_new
-
-   - [ ] term_init -> term_new
-
  - [ ] Goal/parent (parent is a goal)
 
-   - [ ] goal_init -> goal_new
-
    - [ ] goal_copy
+
+ - [ ] goal_init -> goal_new
+
+ - [ ] env_init -> env_new
+
+ - [ ] rule_init -> rule_new
+
+ - [ ] term_init -> term_new
 
  - [ ] Goal, again
 
@@ -72,6 +72,8 @@
  - [ ] how to organize tests in C?
 
  - [ ] use a better way to hold multiple fields (see rules/term/rule)?
+
+ - [ ] only expose interfaces (this means using opaque pointers)
 
  - [ ] user input error handling
 
