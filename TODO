@@ -35,7 +35,7 @@
 
    - [X] print
 
- - [-] Goal/env
+ - [X] Goal/env
 
    - [X] interface
 
@@ -51,11 +51,11 @@
 
    - [X] copy
 
- - [ ] Goal/parent (parent is a goal)
+ - [X] Goal/parent (parent is a goal)
 
-   - [ ] goal_copy
+   - [X] goal_copy
 
-   - [ ] rule_copy
+   - [X] rule_copy
 
  - [ ] goal_init -> goal_new
 
