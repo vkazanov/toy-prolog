@@ -65,6 +65,8 @@
 
    - [ ] formulate tests
 
+   - [ ] implement
+
  - [ ] port search
 
  - [ ] goal_init -> goal_new
