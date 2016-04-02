@@ -1,3 +1,5 @@
+#ifndef ENV_H
+#define ENV_H
 #include <stdbool.h>
 #include <stdlib.h>
 
@@ -17,3 +19,5 @@ char* env_get(Env* env, const char* key);
 int env_set(Env* env, char* key, char* value);
 bool env_has(Env* env, const char* key);
 Env* env_copy(const Env* env_orig);
+
+#endif //ENV_H

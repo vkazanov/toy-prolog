@@ -1,3 +1,5 @@
+#ifndef DATA_H
+#define DATA_H
 #include <stdlib.h>
 #include "env.h"
 
@@ -40,3 +42,5 @@ Term* term_copy(Term* term);
 void goal_init(Goal* goal, Rule* rule, Goal* parent, Env* env);
 void goal_print(Goal* goal);
 Goal* goal_copy(Goal* goal);
+
+#endif //DATA_H
