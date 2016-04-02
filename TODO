@@ -59,7 +59,11 @@
 
  - [X] Goal, again
 
- - [ ] port unify
+ - [-] port unify
+
+   - [X] fileskel
+
+   - [ ] formulate tests
 
  - [ ] port search
 
@@ -70,6 +74,8 @@
  - [ ] rule_init -> rule_new
 
  - [ ] term_init -> term_new
+
+ - [ ] use opaque pointers
 
  - [ ] how to organize tests in C?
 
