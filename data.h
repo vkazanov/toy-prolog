@@ -38,6 +38,8 @@ Rule* rule_copy(Rule* rule);
 void term_init(Term* term, char* str);
 void term_print(Term* term);
 Term* term_copy(Term* term);
+size_t term_arg_count(Term* term);
+char* term_pred(Term* term);
 
 void goal_init(Goal* goal, Rule* rule, Goal* parent, Env* env);
 void goal_print(Goal* goal);

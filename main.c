@@ -21,25 +21,36 @@ void proc_file(FILE* stream, char* delim);
 int main (int argc, char* argv[argc+1]) {
     puts("starting");
 
-    /* Unification should succeed on two identic Terms */
-    Term* leftTerm = malloc(sizeof leftTerm);
-    term_init(leftTerm, "boy(bill)");
+    /* Case 1: unification should succeed on two identic Terms */
+    {
+        Term* leftTerm = malloc(sizeof leftTerm);
+        term_init(leftTerm, "boy(bill)");
+        Env* leftEnv = malloc(sizeof leftEnv);
+        env_init(leftEnv);
 
-    puts("starting3");
+        Term* rightTerm = malloc(sizeof rightTerm);
+        term_init(rightTerm, "boy(bill)");
+        Env* rightEnv = malloc(sizeof rightEnv);
+        env_init(rightEnv);
 
-    Env* leftEnv = malloc(sizeof leftEnv);
-    env_init(leftEnv);
+        assert(unify(leftTerm,leftEnv,rightTerm,rightEnv));
+    }
 
-    puts("left done");
+    /* Case 2: unification should NOT succeed on two different Terms with no
+       vars */
+    {
+        Term* leftTerm = malloc(sizeof leftTerm);
+        term_init(leftTerm, "boy(bill)");
+        Env* leftEnv = malloc(sizeof leftEnv);
+        env_init(leftEnv);
 
-    Term* rightTerm = malloc(sizeof rightTerm);
-    term_init(rightTerm, "boy(bill)");
-    Env* rightEnv = malloc(sizeof rightEnv);
-    env_init(rightEnv);
+        Term* rightTerm = malloc(sizeof rightTerm);
+        term_init(rightTerm, "boy(frank)");
+        Env* rightEnv = malloc(sizeof rightEnv);
+        env_init(rightEnv);
 
-    puts("right done");
-
-    assert(unify(leftTerm,leftEnv,rightTerm,rightEnv));
+        assert(!unify(leftTerm,leftEnv,rightTerm,rightEnv));
+    }
 
     return EXIT_SUCCESS;
 

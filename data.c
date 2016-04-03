@@ -144,6 +144,14 @@ Term* term_copy(Term* orig_term) {
     return new_term;
 }
 
+size_t term_arg_count(Term* term) {
+    return term->arg_count;
+}
+
+char* term_pred(Term* term) {
+    return term->pred;
+}
+
 void goal_init(Goal* goal, Rule* rule, Goal* parent, Env* env) {
     static size_t goal_id = 0;
     goal->id = goal_id;
