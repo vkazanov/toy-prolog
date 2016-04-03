@@ -125,7 +125,7 @@ void term_init(Term* term, char* str) {
     term->pred = pred;
 
     free(args_str);
-    free(str_copy);
+    /* free(str_copy); */
 }
 
 void term_print(Term* term) {

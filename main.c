@@ -66,6 +66,22 @@ int main (int argc, char* argv[argc+1]) {
         assert(strcmp(env_get(rightEnv, "X"), "frank") == 0);
     }
 
+    /* Case 4: should unify setting X to 'frank' and comparing constants*/
+    {
+        Term* leftTerm = malloc(sizeof leftTerm);
+        term_init(leftTerm, "boy(frank,dima)");
+        Env* leftEnv = malloc(sizeof leftEnv);
+        env_init(leftEnv);
+
+        Term* rightTerm = malloc(sizeof rightTerm);
+        term_init(rightTerm, "boy(X,dima)");
+        Env* rightEnv = malloc(sizeof rightEnv);
+        env_init(rightEnv);
+
+        assert(unify(leftTerm,leftEnv,rightTerm,rightEnv));
+        assert(strcmp(env_get(rightEnv, "X"), "frank") == 0);
+    }
+
     return EXIT_SUCCESS;
 
     for (int i = 1; i < argc; i++) {

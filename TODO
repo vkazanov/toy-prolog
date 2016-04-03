@@ -63,11 +63,13 @@
 
    - [X] fileskel
 
-   - [ ] formulate tests
+   - [X] formulate tests
 
-   - [ ] implement
+   - [X] implement
 
    - [ ] extract unify tests into a test file
+
+   - [ ] term_init -> free(str_copy)
 
  - [ ] port search
 
