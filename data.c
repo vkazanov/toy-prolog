@@ -96,6 +96,7 @@ void term_init(Term* term, char* str) {
         sprintf(buf, "Syntax error in term: %s 1", str_copy);
         fail(buf);
     }
+    term->pred = pred;
 
     /* Predicate args */
     char* args_str = strdup(strtok(NULL, "("));
@@ -106,6 +107,9 @@ void term_init(Term* term, char* str) {
 
     /* Strip the rightmost paren */
     args_str[strlen(args_str)-1] = '\0';
+
+    /* No need for the str copy anymore */
+    free(str_copy);
 
     /* Split args */
     char* token = strtok(args_str, ",");
@@ -122,10 +126,7 @@ void term_init(Term* term, char* str) {
         }
     }
 
-    term->pred = pred;
-
     free(args_str);
-    /* free(str_copy); */
 }
 
 void term_print(Term* term) {

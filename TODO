@@ -59,7 +59,7 @@
 
  - [X] Goal, again
 
- - [-] port unify
+ - [X] port unify
 
    - [X] fileskel
 
@@ -69,9 +69,17 @@
 
    - [X] extract unify tests into a test file
 
-   - [ ] term_init -> free(str_copy)?!
+ - [X] how to organize tests in C?
 
  - [ ] port search
+
+   - [ ] fileskel/testskel
+
+   - [ ] formulate basic tests
+
+   - [ ] implement
+
+ - [ ] term_init -> free(str_copy)?!
 
  - [ ] goal_init -> goal_new
 
@@ -81,9 +89,9 @@
 
  - [ ] term_init -> term_new
 
- - [ ] use opaque pointers
+ - [ ] пройтись valgrind-ом по программе
 
- - [ ] how to organize tests in C?
+ - [ ] use opaque pointers
 
  - [ ] use a better way to hold multiple fields (see rules/term/rule)?
 
