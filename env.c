@@ -30,8 +30,8 @@ char* env_get(Env* env, const char* key) {
 
 int env_set(Env* env, char* key, char* value) {
     size_t count = env->count;
-    env->keys[count] = key;
-    env->values[count] = value;
+    env->keys[count] = strdup(key);
+    env->values[count] = strdup(value);
     env->count++;
     return 0;
 }

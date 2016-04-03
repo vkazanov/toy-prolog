@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+#include <assert.h>
 
 #include "data.h"
 #include "util.h"
@@ -146,6 +147,12 @@ Term* term_copy(Term* orig_term) {
 
 size_t term_arg_count(Term* term) {
     return term->arg_count;
+}
+
+char* term_arg(Term* term, size_t i) {
+    assert(term);
+    assert(i < term->arg_count);
+    return term->args[i];
 }
 
 char* term_pred(Term* term) {

@@ -19,8 +19,6 @@ size_t rule_count = 0;
 void proc_file(FILE* stream, char* delim);
 
 int main (int argc, char* argv[argc+1]) {
-    puts("starting");
-
     /* Case 1: unification should succeed on two identic Terms */
     {
         Term* leftTerm = malloc(sizeof leftTerm);
@@ -50,6 +48,22 @@ int main (int argc, char* argv[argc+1]) {
         env_init(rightEnv);
 
         assert(!unify(leftTerm,leftEnv,rightTerm,rightEnv));
+    }
+
+    /* Case 3: should unify setting X to 'frank' */
+    {
+        Term* leftTerm = malloc(sizeof leftTerm);
+        term_init(leftTerm, "boy(frank)");
+        Env* leftEnv = malloc(sizeof leftEnv);
+        env_init(leftEnv);
+
+        Term* rightTerm = malloc(sizeof rightTerm);
+        term_init(rightTerm, "boy(X)");
+        Env* rightEnv = malloc(sizeof rightEnv);
+        env_init(rightEnv);
+
+        assert(unify(leftTerm,leftEnv,rightTerm,rightEnv));
+        assert(strcmp(env_get(rightEnv, "X"), "frank") == 0);
     }
 
     return EXIT_SUCCESS;
