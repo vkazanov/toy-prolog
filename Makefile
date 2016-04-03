@@ -30,6 +30,6 @@ $(EXECUTABLE): main.o $(OBJECTS)
 	$(CC) -c $< $(CFLAGS)
 
 clean:
-	rm *.o $(EXECUTABLE)
+	rm -f *.o $(EXECUTABLE) unify_test
 
 .PHONY: clean

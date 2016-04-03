@@ -67,9 +67,9 @@
 
    - [X] implement
 
-   - [ ] extract unify tests into a test file
+   - [X] extract unify tests into a test file
 
-   - [ ] term_init -> free(str_copy)
+   - [ ] term_init -> free(str_copy)?!
 
  - [ ] port search
 
