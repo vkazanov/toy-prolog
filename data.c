@@ -76,30 +76,30 @@ Rule* rule_copy(Rule* orig_rule) {
 void term_init(Term* term, char* str) {
     /* printf("term_init from \"%s\"\n", str); */
     /* expect x(y,z...) */
-
+    char* str_copy = strdup(str);
     char buf[256];
     term->str = strdup(str);
     term->arg_count = 0;
 
-    size_t strsize = strlen(str);
+    size_t strsize = strlen(str_copy);
 
     /* Should end with ) */
-    if (str[strsize - 1] != ')') {
-        sprintf(buf, "Syntax error in term: %s 0", str);
+    if (str_copy[strsize - 1] != ')') {
+        sprintf(buf, "Syntax error in term: %s 0", str_copy);
         fail(buf);
     }
 
     /* Should start with a predicate name ( */
-    char* pred = strdup(strtok(str, "("));
+    char* pred = strdup(strtok(str_copy, "("));
     if (pred == NULL) {
-        sprintf(buf, "Syntax error in term: %s 1", str);
+        sprintf(buf, "Syntax error in term: %s 1", str_copy);
         fail(buf);
     }
 
     /* Predicate args */
     char* args_str = strdup(strtok(NULL, "("));
     if (args_str == NULL) {
-        sprintf(buf, "Syntax error in term: %s 2", str);
+        sprintf(buf, "Syntax error in term: %s 2", str_copy);
         fail(buf);
     }
 
@@ -124,6 +124,7 @@ void term_init(Term* term, char* str) {
     term->pred = pred;
 
     free(args_str);
+    free(str_copy);
 }
 
 void term_print(Term* term) {

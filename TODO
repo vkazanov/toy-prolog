@@ -67,6 +67,8 @@
 
    - [ ] implement
 
+   - [ ] extract unify tests into a test file
+
  - [ ] port search
 
  - [ ] goal_init -> goal_new

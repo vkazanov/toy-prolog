@@ -5,9 +5,11 @@
 #include <errno.h>
 #include <string.h>
 #include <regex.h>
+#include <assert.h>
 
 #include "util.h"
 #include "data.h"
+#include "unify.h"
 
 bool trace = false;
 
@@ -17,10 +19,30 @@ size_t rule_count = 0;
 void proc_file(FILE* stream, char* delim);
 
 int main (int argc, char* argv[argc+1]) {
-    Rule rule;
-    rule_init(&rule,argv[1]);
-    rule_print(&rule);
+    puts("starting");
+
+    /* Unification should succeed on two identic Terms */
+    Term* leftTerm = malloc(sizeof leftTerm);
+    term_init(leftTerm, "boy(bill)");
+
+    puts("starting3");
+
+    Env* leftEnv = malloc(sizeof leftEnv);
+    env_init(leftEnv);
+
+    puts("left done");
+
+    Term* rightTerm = malloc(sizeof rightTerm);
+    term_init(rightTerm, "boy(bill)");
+    Env* rightEnv = malloc(sizeof rightEnv);
+    env_init(rightEnv);
+
+    puts("right done");
+
+    assert(unify(leftTerm,leftEnv,rightTerm,rightEnv));
+
     return EXIT_SUCCESS;
+
     for (int i = 1; i < argc; i++) {
         char* filename = argv[i];
         if (strcmp(filename, ".") == 0) {

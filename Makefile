@@ -7,7 +7,7 @@ CFLAGS ?= -Wall \
     -Wdisabled-optimization -Wshadow -Wmissing-braces \
     -Wstrict-aliasing=2 -Wstrict-overflow=5 -Wconversion \
     -Wno-unused-parameter \
-    -pedantic -std=c11
+    -pedantic -std=c11 -g
 
 SOURCES=main.c data.c util.c env.c unify.c
 OBJECTS=$(SOURCES:.c=.o)
