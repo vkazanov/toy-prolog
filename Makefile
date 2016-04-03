@@ -9,14 +9,21 @@ CFLAGS ?= -Wall \
     -Wno-unused-parameter \
     -pedantic -std=c11 -g
 
-SOURCES=main.c data.c util.c env.c unify.c
+SOURCES=data.c util.c env.c unify.c
+SOURCES_TEST=unify_test.c
 OBJECTS=$(SOURCES:.c=.o)
+OBJECTS_TEST=$(SOURCES_TEST:.c=.o)
 EXECUTABLE=testc
 
-all: $(EXECUTABLE)
+all: $(EXECUTABLE) test
 
+test: unify_test
+	./unify_test
 
-$(EXECUTABLE): $(OBJECTS)
+unify_test: unify_test.o $(OBJECTS)
+	$(CC) $^ -o $@
+
+$(EXECUTABLE): main.o $(OBJECTS)
 	$(CC) $^ -o $@
 
 %.o: %.c

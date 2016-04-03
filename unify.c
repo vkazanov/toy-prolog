@@ -3,7 +3,7 @@
 #include "unify.h"
 #include <stdio.h>
 
-bool is_variable(char* arg);
+static bool is_variable(char* arg);
 
 bool unify(Term* srcTerm, Env* srcEnv, Term* destTerm, Env* destEnv) {
     size_t nargs = term_arg_count(srcTerm);
@@ -45,7 +45,7 @@ bool unify(Term* srcTerm, Env* srcEnv, Term* destTerm, Env* destEnv) {
     return true;
 }
 
-bool is_variable(char* arg) {
+static bool is_variable(char* arg) {
     assert(arg);
     return arg[0] >= 'A' && arg[0] <= 'Z';
 }
