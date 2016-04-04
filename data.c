@@ -105,11 +105,12 @@ void term_init(Term* term, char* str) {
         fail(buf);
     }
 
+    /* No need for the str copy anymore */
+    free(str_copy);
+
     /* Strip the rightmost paren */
     args_str[strlen(args_str)-1] = '\0';
 
-    /* No need for the str copy anymore */
-    free(str_copy);
 
     /* Split args */
     char* token = strtok(args_str, ",");

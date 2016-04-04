@@ -9,16 +9,18 @@ CFLAGS ?= -Wall \
     -Wno-unused-parameter \
     -pedantic -std=c11 -g
 
-SOURCES=data.c util.c env.c unify.c
-SOURCES_TEST=unify_test.c
+SOURCES=data.c util.c env.c unify.c search.c
 OBJECTS=$(SOURCES:.c=.o)
-OBJECTS_TEST=$(SOURCES_TEST:.c=.o)
 EXECUTABLE=testc
 
 all: $(EXECUTABLE) test
 
-test: unify_test
+test: unify_test search_test
 	./unify_test
+	./search_test
+
+search_test: search_test.o $(OBJECTS)
+	$(CC) $^ -o $@
 
 unify_test: unify_test.o $(OBJECTS)
 	$(CC) $^ -o $@
@@ -30,6 +32,6 @@ $(EXECUTABLE): main.o $(OBJECTS)
 	$(CC) -c $< $(CFLAGS)
 
 clean:
-	rm -f *.o $(EXECUTABLE) unify_test core
+	rm -f *.o $(EXECUTABLE) unify_test search_test core
 
 .PHONY: clean

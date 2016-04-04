@@ -24,8 +24,7 @@ static char* test_identic () {
     return 0;
 }
 
-/* Case 2: unification should NOT succeed on two different Terms with no
-   vars */
+/* Case 2: unification should NOT succeed on two different Terms with no vars */
 static char* test_different () {
     Term* leftTerm = malloc(sizeof leftTerm);
     term_init(leftTerm, "boy(bill)");
