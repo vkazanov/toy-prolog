@@ -11,12 +11,13 @@ void rule_init(Rule* rule, char* str) {
     /* expect "term-:term;term;..." */
 
     char buf[256];
+    char* tmp_str = strdup(str);
     rule->str = strdup(str);
     rule->goal_count = 0;
 
     /* Parse head */
-    char* saveptr;
-    char* head_str = strtok_r(str, ":-", &saveptr);
+    char* saveptr = NULL;
+    char* head_str = strtok_r(tmp_str, ":-", &saveptr);
     if (head_str == NULL) {
         sprintf(buf, "Syntax error in rule: %s 0", str);
         fail(buf);
@@ -55,6 +56,8 @@ void rule_init(Rule* rule, char* str) {
         rule->goals[rule->goal_count] = term;
         rule->goal_count++;
     }
+
+    free(tmp_str);
 }
 
 void rule_print(Rule* rule) {

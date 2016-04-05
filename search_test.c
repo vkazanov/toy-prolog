@@ -1,21 +1,58 @@
 #include <stdio.h>
-#include "minunit.h"
+#include "data.h"
+#include "search.h"
 
-int tests_run = 0;
-
-static char* all_tests() {
-    return 0;
-}
+bool trace = true;
 
 int main() {
-    char *result = all_tests();
-    if (result != 0) {
-        printf("%s\n", result);
-    }
-    else {
-        printf("ALL TESTS PASSED\n");
-    }
-    printf("Tests run: %d\n", tests_run);
+    Rule rules[256];
+    size_t rule_count = 0;
 
-    return result != 0;
+    /* A primitive case */
+    {
+        puts("Basic unification. Should succeed!");
+
+        char* data = "smart(boy)";
+        rule_init(&rules[0], data);
+        rule_count++;
+
+        puts(data);
+        puts("should unify with");
+        char* query = "smart(boy)";
+        puts(query);
+
+        Term* term = malloc(sizeof(Term));
+        term_init(term, query);
+        search(term, &rules[0], rule_count);
+
+        puts("Done!");
+    }
+
+    /* Variable unification */
+    {
+        puts("Variable unification. Should succeed with X == boy!");
+
+        char* query = "smart(X)";
+        puts(query);
+        Term* term = malloc(sizeof(Term));
+        term_init(term, query);
+        search(term, &rules[0], rule_count);
+
+        puts("Done!");
+    }
+
+    /* Fail to unify */
+    {
+        puts("Variable unification. Should fail!");
+
+        char* query = "smart(girl)";
+        puts(query);
+        Term* term = malloc(sizeof(Term));
+        term_init(term, query);
+        search(term, &rules[0], rule_count);
+
+        puts("Done!");
+    }
+
+    return EXIT_SUCCESS;
 }

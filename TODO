@@ -71,13 +71,15 @@
 
  - [X] how to organize tests in C?
 
- - [ ] port search
+ - [-] port search
 
-   - [ ] fileskel/testskel
+   - [X] fileskel/testskel
 
-   - [ ] formulate basic tests
+   - [X] Test code runner
 
-   - [ ] implement
+   - [X] rule_init fails
+
+   - [ ] Goal stack
 
  - [ ] term_init -> free(str_copy)?!
 
@@ -100,3 +102,5 @@
  - [ ] user input error handling
 
  - [ ] run through Valgrind
+
+ - [ ] object destroying functions
