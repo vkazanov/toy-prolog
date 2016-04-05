@@ -77,6 +77,12 @@ Rule* rule_copy(Rule* orig_rule) {
     return new_rule;
 }
 
+void rule_setgoal(Rule* rule, Term* term) {
+    rule->goal_count = 1;
+    rule->goals[0] = term_copy(term);
+    /* TODO: mem leak here, should probably free the data first */
+}
+
 void term_init(Term* term, char* str) {
     /* printf("term_init from \"%s\"\n", str); */
     /* expect x(y,z...) */

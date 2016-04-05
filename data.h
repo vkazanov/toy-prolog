@@ -34,6 +34,7 @@ struct Goal {
 void rule_init(Rule* rule, char* str);
 void rule_print(Rule* rule);
 Rule* rule_copy(Rule* rule);
+void rule_setgoal(Rule* rule, Term* term);
 
 void term_init(Term* term, char* str);
 void term_print(Term* term);
