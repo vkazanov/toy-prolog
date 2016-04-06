@@ -79,7 +79,9 @@
 
    - [X] rule_init fails
 
-   - [ ] Goal stack
+   - [X] Goal stack
+
+   - [ ] The loop
 
  - [ ] term_init -> free(str_copy)?!
 
