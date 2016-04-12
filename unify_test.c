@@ -6,6 +6,7 @@
 #include "unify.h"
 
 int tests_run = 0;
+bool trace = false;
 
 /* Case 1: unification should succeed on two identic Terms */
 static char* test_identic () {
