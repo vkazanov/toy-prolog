@@ -16,7 +16,7 @@ void env_print(Env* env) {
             printf(", ");
         }
     }
-    printf(" }\n");
+    printf(" }");
 }
 
 char* env_get(Env* env, const char* key) {

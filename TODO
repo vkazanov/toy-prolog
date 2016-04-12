@@ -81,7 +81,11 @@
 
    - [X] Goal stack
 
-   - [ ] The loop
+   - [X] The loop
+
+   - [ ] debug the loop
+
+ - [ ] stupid search stack -> a proper ADT
 
  - [ ] term_init -> free(str_copy)?!
 

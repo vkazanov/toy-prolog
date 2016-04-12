@@ -36,18 +36,18 @@ int main() {
         puts("Done!");
     }
 
-    puts("");
+    /* puts(""); */
 
-    {
-        puts("Variable unification. Should fail!");
+    /* { */
+    /*     puts("Variable unification. Should fail!"); */
 
-        char* query = "smart(girl)";
-        Term* term = malloc(sizeof(Term));
-        term_init(term, query);
-        search(term, &rules[0], rule_count);
+    /*     char* query = "smart(girl)"; */
+    /*     Term* term = malloc(sizeof(Term)); */
+    /*     term_init(term, query); */
+    /*     search(term, &rules[0], rule_count); */
 
-        puts("Done!");
-    }
+    /*     puts("Done!"); */
+    /* } */
 
     return EXIT_SUCCESS;
 }

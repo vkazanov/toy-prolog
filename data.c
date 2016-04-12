@@ -147,7 +147,7 @@ void term_print(Term* term) {
             printf(",");
         }
     }
-    printf(")\n");
+    printf(")");
 }
 
 Term* term_copy(Term* orig_term) {
@@ -187,7 +187,8 @@ void goal_init(Goal* goal, Rule* rule, Goal* parent, Env* env) {
 }
 
 void goal_print(Goal* goal) {
-    printf("Goal %zu inx=%zu", goal->id, goal->inx);
+    printf("Goal %zu inx=%zu ", goal->id, goal->inx);
+    rule_print(goal->rule);
 }
 
 Goal* goal_copy(Goal* orig_goal) {
