@@ -72,7 +72,7 @@ void rule_print(Rule* rule) {
 }
 
 Rule* rule_copy(Rule* orig_rule) {
-    Rule* new_rule = malloc(sizeof(new_rule));
+    Rule* new_rule = malloc(sizeof(Rule));
     new_rule->str = strdup(orig_rule->str);
     new_rule->head = term_copy(orig_rule->head);
     for (size_t i = 0; i < orig_rule->goal_count; i++) {
@@ -156,7 +156,7 @@ void term_print(Term* term) {
 }
 
 Term* term_copy(Term* orig_term) {
-    Term* new_term = malloc(sizeof(new_term));
+    Term* new_term = malloc(sizeof(Term));
     term_init(new_term, orig_term->str);
     return new_term;
 }
@@ -183,7 +183,7 @@ void goal_init(Goal* goal, Rule* rule, Goal* parent, Env* env) {
     goal->parent = parent;
     goal->inx = 0;
     if (env == NULL) {
-        Env* new_env = malloc(sizeof(new_env));
+        Env* new_env = malloc(sizeof(Env));
         env_init(new_env);
         goal->env = new_env;
     } else {
@@ -200,7 +200,7 @@ void goal_print(Goal* goal) {
 }
 
 Goal* goal_copy(Goal* orig_goal) {
-    Goal* new_goal = malloc(sizeof(new_goal));
+    Goal* new_goal = malloc(sizeof(Goal));
     goal_init(new_goal, rule_copy(orig_goal->rule), NULL, orig_goal->env);
     new_goal->inx = orig_goal->inx;
     new_goal->env = env_copy(orig_goal->env);

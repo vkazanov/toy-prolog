@@ -71,7 +71,7 @@
 
  - [X] how to organize tests in C?
 
- - [-] port search
+ - [X] port search
 
    - [X] fileskel/testskel
 
@@ -83,7 +83,11 @@
 
    - [X] The loop
 
-   - [ ] debug the loop
+   - [X] debug the loop
+
+ - [ ] more search tests
+
+ - [ ] integrate with the main loop
 
  - [ ] stupid search stack -> a proper ADT
 
@@ -99,7 +103,7 @@
 
  - [ ] пройтись valgrind-ом по программе
 
- - [ ] use opaque pointers
+ - [ ] arena memory management?
 
  - [ ] use a better way to hold multiple fields (see rules/term/rule)?
 

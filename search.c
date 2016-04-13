@@ -58,11 +58,11 @@ void search(Term* term, Rule* rules, size_t rule_count) {
                 continue;
             }
 
+
             Goal* parent = goal_copy(c->parent);
             unify(c->rule->head, c->env,
                   parent->rule->goals[parent->inx], parent->env);
             parent->inx++;
-
             if (trace == true) {
                 printf("stack ");
                 goal_print(parent);

@@ -41,7 +41,7 @@ bool env_has(Env* env, const char* key) {
 }
 
 Env* env_copy(const Env* env_orig) {
-    Env* env_new = malloc(sizeof(env_new));
+    Env* env_new = malloc(sizeof(Env));
     env_init(env_new);
     for (size_t i = 0; i < env_orig->count; i++) {
         char* key = env_orig->keys[i];
