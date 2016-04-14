@@ -9,7 +9,7 @@
 
 #include "util.h"
 #include "data.h"
-#include "unify.h"
+#include "search.h"
 
 bool trace = false;
 
@@ -73,19 +73,16 @@ void proc_file(FILE* stream, char* prompt) {
         } else if (strcmp(buf, "dump") == 0) {
             for (size_t i = 0; i < rule_count; i++) {
                 rule_print(&rules[i]);
+                puts("");
             }
         } else if (punc == '?') {
-            /* TODO */
+            Term term;
+            term_init(&term, buf);
+            search(&term, rules, rule_count);
         } else {
             rule_init(&rules[rule_count], strdup(buf));
             rule_count++;
         }
-
-        /* TODO: Term (see the question mark)*/
-        /* TODO: rules dump */
-        /* TODO: rule add */
-        /* TODO: search */
-
         free(buf);
     }
 }

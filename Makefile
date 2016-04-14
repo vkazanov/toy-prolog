@@ -13,7 +13,7 @@ SOURCES=data.c util.c env.c unify.c search.c
 OBJECTS=$(SOURCES:.c=.o)
 EXECUTABLE=testc
 
-all: $(EXECUTABLE) test
+all: $(EXECUTABLE)
 
 test: unify_test search_test
 	./unify_test
