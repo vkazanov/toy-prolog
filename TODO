@@ -87,7 +87,7 @@
 
  - [X] more search tests
 
- - [ ] integrate with the main loop
+ - [X] integrate with the main loop
 
  - [ ] stupid search stack -> a proper ADT
 

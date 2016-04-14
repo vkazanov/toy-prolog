@@ -11,10 +11,12 @@
 #include "data.h"
 #include "search.h"
 
-bool trace = false;
+#define MAX_RULE_COUNT 512
+#define MAX_LINE_LENGTH 512
 
-Rule rules[256];
-size_t rule_count = 0;
+bool trace = false;
+static Rule rules[MAX_RULE_COUNT];
+static size_t rule_count = 0;
 
 void proc_file(FILE* stream, char* delim);
 
@@ -31,18 +33,20 @@ int main (int argc, char* argv[argc+1]) {
         proc_file(file, "");
         fclose(file);
     }
-    proc_file(stdin, "? ");
+    proc_file(stdin, ">");
     return EXIT_SUCCESS;
 }
 
 void proc_file(FILE* stream, char* prompt) {
+    char* buf = malloc(sizeof(char) * (MAX_LINE_LENGTH+1));
     while (true) {
         if (strlen(prompt) != 0) {
             printf("%s", prompt);
         }
-        size_t bytes_to_read = 256;
-        char* buf = malloc(bytes_to_read+1);
-        getline(&buf, &bytes_to_read, stream);
+        size_t bytes_to_read = MAX_LINE_LENGTH;
+        if (getline(&buf, &bytes_to_read, stream) == -1) {
+            break;
+        }
 
         trim(buf);
         remove_comments(buf);
@@ -50,7 +54,6 @@ void proc_file(FILE* stream, char* prompt) {
 
         /* Nothing left, just continue to the next line */
         if (strcmp(buf, "") == 0) {
-            free(buf);
             continue;
         }
 
@@ -83,6 +86,6 @@ void proc_file(FILE* stream, char* prompt) {
             rule_init(&rules[rule_count], strdup(buf));
             rule_count++;
         }
-        free(buf);
     }
+    free(buf);
 }
