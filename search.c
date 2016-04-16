@@ -2,8 +2,7 @@
 #include <string.h>
 #include "search.h"
 #include "unify.h"
-
-#define MAX_STACK_DEPTH 256
+#include "util.h"
 
 extern bool trace;
 
@@ -28,15 +27,12 @@ void search(Term* term, Rule* rules, size_t rule_count) {
     }
 
     /* Search start */
-    Goal* stack[MAX_STACK_DEPTH] = { NULL };
-    size_t stack_depth = 0;
+    Stack* stack = malloc(sizeof(Stack));
+    stack_init(stack);
+    stack_push(stack, goal);
 
-    stack[stack_depth] = goal;
-    stack_depth++;
-
-    while (stack_depth > 0) {
-        Goal* c = stack[stack_depth-1];
-        stack_depth--;
+    while (stack_depth(stack) > 0) {
+        Goal* c = stack_pop(stack);
 
         if (trace == true) {
             printf("  pop ");
@@ -69,8 +65,7 @@ void search(Term* term, Rule* rules, size_t rule_count) {
                 puts("");
             }
 
-            stack[stack_depth] = parent;
-            stack_depth++;
+            stack_push(stack, parent);
             continue;
         }
 
@@ -94,9 +89,10 @@ void search(Term* term, Rule* rules, size_t rule_count) {
                     goal_print(child);
                     puts("");
                 }
-                stack[stack_depth] = child;
-                stack_depth++;
+                stack_push(stack, child);
             }
         }
     }
+
+    free(stack);
 }
