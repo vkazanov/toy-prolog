@@ -93,24 +93,20 @@
 
  - [X] stupid search stack -> a proper ADT
 
- - [ ] term_init -> free(str_copy)?!
+ - [-] new/destroy for all DSs
 
- - [ ] goal_init -> goal_new
+   - [X] env
 
- - [ ] env_init -> env_new
+   - [ ] term
 
- - [ ] rule_init -> rule_new
+   - [ ] goal
 
- - [ ] term_init -> term_new
+   - [ ] rule
 
- - [ ] arena memory management?
+ - [ ] arena-based memory management
 
- - [ ] use a better way to hold multiple fields (see rules/term/rule)?
+ - [ ] run through Valgrind
 
  - [ ] only expose interfaces (this means using opaque pointers)
 
  - [ ] user input error handling
-
- - [ ] run through Valgrind
-
- - [ ] object destroying functions

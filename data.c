@@ -11,6 +11,30 @@ void env_init(Env* env) {
     env->count = 0;
 }
 
+Env* env_new() {
+    Env* env = malloc(sizeof(Env));
+    env_init(env);
+    return env;
+}
+
+Env* env_copy(Env* env_orig) {
+    Env* env_copy = env_new();
+    for (size_t i = 0; i < env_orig->count; i++) {
+        char* key = env_orig->keys[i];
+        char* value = env_orig->values[i];
+        env_set(env_copy, strdup(key), strdup(value));
+    }
+    return env_copy;
+}
+
+void env_destroy(Env* env) {
+    for (size_t i; i < env->count; i++) {
+        free(env->keys[i]);
+        free(env->values[i]);
+    }
+    free(env);
+}
+
 void env_print(Env* env) {
     printf("Env { ");
     for (size_t i = 0; i < env->count; i++) {
@@ -41,17 +65,6 @@ int env_set(Env* env, char* key, char* value) {
 
 bool env_has(Env* env, char* key) {
     return env_get(env, key) != NULL;
-}
-
-Env* env_copy(Env* env_orig) {
-    Env* env_new = malloc(sizeof(Env));
-    env_init(env_new);
-    for (size_t i = 0; i < env_orig->count; i++) {
-        char* key = env_orig->keys[i];
-        char* value = env_orig->values[i];
-        env_set(env_new, strdup(key), strdup(value));
-    }
-    return env_new;
 }
 
 void rule_init(Rule* rule, char* str) {
@@ -230,8 +243,7 @@ void goal_init(Goal* goal, Rule* rule, Goal* parent, Env* env) {
     goal->parent = parent;
     goal->inx = 0;
     if (env == NULL) {
-        Env* new_env = malloc(sizeof(Env));
-        env_init(new_env);
+        Env* new_env = env_new();
         goal->env = new_env;
     } else {
         goal->env = env_copy(env);
