@@ -4,6 +4,7 @@
 #include <stdbool.h>
 
 #define MAX_ENV_SIZE 256
+#define MAX_LINE_LENGTH 512
 
 typedef struct Env Env;
 typedef struct Rule Rule;

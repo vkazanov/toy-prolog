@@ -57,7 +57,7 @@ Env* env_copy(Env* env_orig) {
 void rule_init(Rule* rule, char* str) {
     /* expect "term-:term;term;..." */
 
-    char buf[256];
+    char buf[MAX_LINE_LENGTH];
     char* tmp_str = strdup(str);
     rule->str = strdup(str);
     rule->goal_count = 0;

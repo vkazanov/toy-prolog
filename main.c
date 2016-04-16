@@ -12,7 +12,6 @@
 #include "search.h"
 
 #define MAX_RULE_COUNT 512
-#define MAX_LINE_LENGTH 512
 
 bool trace = false;
 static Rule rules[MAX_RULE_COUNT];
