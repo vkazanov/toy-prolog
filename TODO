@@ -97,11 +97,11 @@
 
    - [X] env
 
+   - [ ] rule
+
    - [ ] term
 
    - [ ] goal
-
-   - [ ] rule
 
  - [ ] arena-based memory management
 

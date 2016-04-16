@@ -83,8 +83,7 @@ void rule_init(Rule* rule, char* str) {
         fail(buf);
     }
 
-    Term* term = malloc(sizeof(Term));
-    term_init(term, head_str);
+    Term* term = term_new(head_str);
     rule->head = term;
 
     /* Get the goals string */
@@ -102,8 +101,7 @@ void rule_init(Rule* rule, char* str) {
 
     /* Parse the goals */
     char* goal_str = strtok_r(goals_str, ";", &saveptr);
-    term = malloc(sizeof(Term));
-    term_init(term, goal_str);
+    term = term_new(goal_str);
     rule->goals[rule->goal_count] = term;
     rule->goal_count++;
     for (;;) {
@@ -111,8 +109,7 @@ void rule_init(Rule* rule, char* str) {
         if (goal_str == NULL) {
             break;
         }
-        term = malloc(sizeof(Term));
-        term_init(term, goal_str);
+        term = term_new(goal_str);
         rule->goals[rule->goal_count] = term;
         rule->goal_count++;
     }
@@ -120,15 +117,10 @@ void rule_init(Rule* rule, char* str) {
     free(tmp_str);
 }
 
-void rule_print(Rule* rule) {
-    term_print(rule->head);
-    printf(" :- ");
-    for (size_t i = 0; i < rule->goal_count; i++) {
-        term_print(rule->goals[i]);
-        if (i + 1 < rule->goal_count) {
-            printf(",");
-        }
-    }
+Rule* rule_new(char* str) {
+    Rule* rule = malloc(sizeof(Rule));
+    rule_init(rule, str);
+    return rule;
 }
 
 Rule* rule_copy(Rule* orig_rule) {
@@ -140,6 +132,21 @@ Rule* rule_copy(Rule* orig_rule) {
     }
     new_rule->goal_count = orig_rule->goal_count;
     return new_rule;
+}
+
+void rule_destroy(Rule* rule) {
+    // TODO:
+}
+
+void rule_print(Rule* rule) {
+    term_print(rule->head);
+    printf(" :- ");
+    for (size_t i = 0; i < rule->goal_count; i++) {
+        term_print(rule->goals[i]);
+        if (i + 1 < rule->goal_count) {
+            printf(",");
+        }
+    }
 }
 
 void rule_setgoal(Rule* rule, Term* term) {
@@ -204,6 +211,25 @@ void term_init(Term* term, char* str) {
     free(args_str);
 }
 
+Term* term_new(char* str) {
+    Term* term = malloc(sizeof(Term));
+    term_init(term, str);
+    return term;
+}
+
+Term* term_copy(Term* orig_term) {
+    return term_new(orig_term->str);
+}
+
+void term_destroy(Term* term) {
+    free(term->str);
+    free(term->pred);
+    for (size_t i = 0; i < term->arg_count; i ++) {
+        free(term->args[i]);
+    }
+    free(term);
+}
+
 void term_print(Term* term) {
     printf("%s(", term->pred);
     for (size_t i = 0; i < term->arg_count; i++) {
@@ -213,12 +239,6 @@ void term_print(Term* term) {
         }
     }
     printf(")");
-}
-
-Term* term_copy(Term* orig_term) {
-    Term* new_term = malloc(sizeof(Term));
-    term_init(new_term, orig_term->str);
-    return new_term;
 }
 
 size_t term_arg_count(Term* term) {

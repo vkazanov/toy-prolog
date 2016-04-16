@@ -14,8 +14,7 @@ int main() {
         rule_init(&rules[0], "smart(boy)");
         rule_count = 1;
 
-        Term* term = malloc(sizeof(Term));
-        term_init(term, "smart(boy)");
+        Term* term = term_new("smart(boy)");
         search(term, &rules[0], rule_count);
 
         puts("Done!");
@@ -29,8 +28,7 @@ int main() {
         rule_init(&rules[0], "smart(boy)");
         rule_count = 1;
 
-        Term* term = malloc(sizeof(Term));
-        term_init(term, "smart(X)");
+        Term* term = term_new("smart(X)");
         search(term, &rules[0], rule_count);
 
         puts("Done!");
@@ -41,8 +39,7 @@ int main() {
     {
         puts("Variable unification. Should fail!");
 
-        Term* term = malloc(sizeof(Term));
-        term_init(term, "smart(girl)");
+        Term* term = term_new("smart(girl)");
         search(term, &rules[0], rule_count);
 
         puts("Done!");

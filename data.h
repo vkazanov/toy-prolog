@@ -52,13 +52,19 @@ int env_set(Env* env, char* key, char* value);
 bool env_has(Env* env, char* key);
 
 void rule_init(Rule* rule, char* str);
-void rule_print(Rule* rule);
+Rule* rule_new(char* str);
 Rule* rule_copy(Rule* rule);
+void rule_destroy(Rule* rule);
+
+void rule_print(Rule* rule);
 void rule_setgoal(Rule* rule, Term* term);
 
 void term_init(Term* term, char* str);
-void term_print(Term* term);
+Term* term_new(char* str);
 Term* term_copy(Term* term);
+void term_destroy(Term* term);
+
+void term_print(Term* term);
 size_t term_arg_count(Term* term);
 char* term_arg(Term* term, size_t i);
 char* term_pred(Term* term);

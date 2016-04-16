@@ -10,12 +10,10 @@ bool trace = false;
 
 /* Case 1: unification should succeed on two identic Terms */
 static char* test_identic () {
-    Term* leftTerm = malloc(sizeof leftTerm);
-    term_init(leftTerm, "boy(bill)");
+    Term* leftTerm = term_new("boy(bill)");
     Env* leftEnv = env_new();
 
-    Term* rightTerm = malloc(sizeof rightTerm);
-    term_init(rightTerm, "boy(bill)");
+    Term* rightTerm = term_new("boy(bill)");
     Env* rightEnv = env_new();
 
     mu_assert("Error, can't unify boy(bill) and boy(bill)",
@@ -25,12 +23,10 @@ static char* test_identic () {
 
 /* Case 2: unification should NOT succeed on two different Terms with no vars */
 static char* test_different () {
-    Term* leftTerm = malloc(sizeof leftTerm);
-    term_init(leftTerm, "boy(bill)");
+    Term* leftTerm = term_new("boy(bill)");
     Env* leftEnv = env_new();
 
-    Term* rightTerm = malloc(sizeof rightTerm);
-    term_init(rightTerm, "boy(frank)");
+    Term* rightTerm = term_new( "boy(frank)");
     Env* rightEnv = env_new();
 
     mu_assert("Error, unification succeded for different constants in Terms",
@@ -40,12 +36,10 @@ static char* test_different () {
 
 /* Case 3: should unify setting X to 'frank' */
 static char* test_single_var () {
-    Term* leftTerm = malloc(sizeof leftTerm);
-    term_init(leftTerm, "boy(frank)");
+    Term* leftTerm = term_new("boy(frank)");
     Env* leftEnv = env_new();
 
-    Term* rightTerm = malloc(sizeof rightTerm);
-    term_init(rightTerm, "boy(X)");
+    Term* rightTerm = term_new("boy(X)");
     Env* rightEnv = env_new();
 
     mu_assert("Error, failed to unify",
@@ -57,12 +51,10 @@ static char* test_single_var () {
 
 /* Case 4: should unify setting X to 'frank' and comparing constants*/
 static char* test_var_and_atom () {
-    Term* leftTerm = malloc(sizeof leftTerm);
-    term_init(leftTerm, "boy(frank,dima)");
+    Term* leftTerm = term_new("boy(frank,dima)");
     Env* leftEnv = env_new();
 
-    Term* rightTerm = malloc(sizeof rightTerm);
-    term_init(rightTerm, "boy(X,dima)");
+    Term* rightTerm = term_new("boy(X,dima)");
     Env* rightEnv = env_new();
 
     mu_assert("Error, failed to unify",
