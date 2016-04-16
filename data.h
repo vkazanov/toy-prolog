@@ -1,11 +1,20 @@
 #ifndef DATA_H
 #define DATA_H
 #include <stdlib.h>
-#include "env.h"
+#include <stdbool.h>
 
+#define MAX_ENV_SIZE 256
+
+typedef struct Env Env;
 typedef struct Rule Rule;
 typedef struct Term Term;
 typedef struct Goal Goal;
+
+struct Env {
+    char* keys[MAX_ENV_SIZE];
+    char* values[MAX_ENV_SIZE];
+    size_t count;
+};
 
 struct Rule {
     char* str;
@@ -30,6 +39,13 @@ struct Goal {
 
     size_t inx;
 };
+
+void env_init(Env* env);
+void env_print(Env* env);
+char* env_get(Env* env, const char* key);
+int env_set(Env* env, char* key, char* value);
+bool env_has(Env* env, const char* key);
+Env* env_copy(const Env* env_orig);
 
 void rule_init(Rule* rule, char* str);
 void rule_print(Rule* rule);

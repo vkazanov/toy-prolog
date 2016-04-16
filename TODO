@@ -89,6 +89,8 @@
 
  - [X] integrate with the main loop
 
+ - [ ] all logic-related structures - into a single file
+
  - [ ] stupid search stack -> a proper ADT
 
  - [ ] term_init -> free(str_copy)?!
