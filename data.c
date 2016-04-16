@@ -22,7 +22,7 @@ void env_print(Env* env) {
     printf(" }");
 }
 
-char* env_get(Env* env, const char* key) {
+char* env_get(Env* env, char* key) {
     for (size_t i = 0; i < env->count; i++) {
         if (strcmp(key, env->keys[i]) == 0) {
             return env->values[i];
@@ -39,11 +39,11 @@ int env_set(Env* env, char* key, char* value) {
     return 0;
 }
 
-bool env_has(Env* env, const char* key) {
+bool env_has(Env* env, char* key) {
     return env_get(env, key) != NULL;
 }
 
-Env* env_copy(const Env* env_orig) {
+Env* env_copy(Env* env_orig) {
     Env* env_new = malloc(sizeof(Env));
     env_init(env_new);
     for (size_t i = 0; i < env_orig->count; i++) {

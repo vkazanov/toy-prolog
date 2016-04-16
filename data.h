@@ -42,10 +42,10 @@ struct Goal {
 
 void env_init(Env* env);
 void env_print(Env* env);
-char* env_get(Env* env, const char* key);
+char* env_get(Env* env, char* key);
 int env_set(Env* env, char* key, char* value);
-bool env_has(Env* env, const char* key);
-Env* env_copy(const Env* env_orig);
+bool env_has(Env* env, char* key);
+Env* env_copy(Env* env_orig);
 
 void rule_init(Rule* rule, char* str);
 void rule_print(Rule* rule);

@@ -91,7 +91,7 @@
 
  - [X] all logic-related structures - into a single file
 
- - [ ] stupid search stack -> a proper ADT
+ - [X] stupid search stack -> a proper ADT
 
  - [ ] term_init -> free(str_copy)?!
 
@@ -102,8 +102,6 @@
  - [ ] rule_init -> rule_new
 
  - [ ] term_init -> term_new
-
- - [ ] пройтись valgrind-ом по программе
 
  - [ ] arena memory management?
 
