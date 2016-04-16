@@ -3,6 +3,7 @@
 #include "search.h"
 #include "unify.h"
 #include "util.h"
+#include "data.h"
 
 extern bool trace;
 
@@ -13,8 +14,7 @@ void search(Term* term, Rule* rules, size_t rule_count) {
         puts("");
     }
 
-    Rule* rule = malloc(sizeof(Rule));
-    rule_init(rule, "got(goal):-x(y)");
+    Rule* rule = rule_new("got(goal):-x(y)");
     rule_setgoal(rule, term);
 
     Goal* goal = malloc(sizeof(Goal));

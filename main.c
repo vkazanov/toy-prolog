@@ -82,7 +82,7 @@ void proc_file(FILE* stream, char* prompt) {
             term_init(&term, buf);
             search(&term, rules, rule_count);
         } else {
-            rule_init(&rules[rule_count], strdup(buf));
+            rule_init(&rules[rule_count], buf);
             rule_count++;
         }
     }

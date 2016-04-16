@@ -5,6 +5,8 @@
 
 #define MAX_ENV_SIZE 256
 #define MAX_LINE_LENGTH 512
+#define MAX_RULE_GOALS 256
+#define MAX_TERM_ARGS 256
 
 typedef struct Env Env;
 typedef struct Rule Rule;
@@ -20,14 +22,14 @@ struct Env {
 struct Rule {
     char* str;
     Term* head;
-    Term* goals[256];
+    Term* goals[MAX_RULE_GOALS];
     size_t goal_count;
 };
 
 struct Term {
     char* str;
     char* pred;
-    char* args[256];
+    char* args[MAX_TERM_ARGS];
     size_t arg_count;
 };
 
@@ -69,7 +71,10 @@ size_t term_arg_count(Term* term);
 char* term_arg(Term* term, size_t i);
 char* term_pred(Term* term);
 
+Goal* goal_new(Rule* rule, Goal* parent, Env* env);
 void goal_init(Goal* goal, Rule* rule, Goal* parent, Env* env);
+void goal_destroy(Rule* rule);
+
 void goal_print(Goal* goal);
 Goal* goal_copy(Goal* goal);
 

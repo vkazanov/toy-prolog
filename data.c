@@ -135,7 +135,12 @@ Rule* rule_copy(Rule* orig_rule) {
 }
 
 void rule_destroy(Rule* rule) {
-    // TODO:
+    free(rule->str);
+    free(rule->head);
+    for (size_t i = 0; i < rule->goal_count; i++) {
+        free(rule->goals[i]);
+    }
+    free(rule);
 }
 
 void rule_print(Rule* rule) {
