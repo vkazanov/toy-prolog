@@ -260,6 +260,12 @@ char* term_pred(Term* term) {
     return term->pred;
 }
 
+Goal* goal_new(Rule* rule, Goal* parent, Env* env) {
+    Goal* goal = malloc(sizeof(Goal));
+    goal_init(goal, rule, parent, env);
+    return goal;
+}
+
 void goal_init(Goal* goal, Rule* rule, Goal* parent, Env* env) {
     static size_t goal_id = 0;
     goal_id += 1;
@@ -273,6 +279,13 @@ void goal_init(Goal* goal, Rule* rule, Goal* parent, Env* env) {
     } else {
         goal->env = env_copy(env);
     }
+}
+
+void goal_destroy(Goal* goal) {
+    /* TODO: free rule? */
+    /* TODO: free parent? */
+    env_destroy(goal->env);
+    free(goal);
 }
 
 void goal_print(Goal* goal) {

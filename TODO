@@ -93,7 +93,7 @@
 
  - [X] stupid search stack -> a proper ADT
 
- - [-] new/destroy for all DSs
+ - [X] new/destroy for all DSs
 
    - [X] env
 
@@ -101,12 +101,12 @@
 
    - [X] term
 
-   - [ ] goal
+   - [X] goal
 
- - [ ] arena-based memory management
+ - [ ] memory management (arena-based?)
 
  - [ ] run through Valgrind
 
- - [ ] only expose interfaces (this means using opaque pointers)
+ - [ ] only expose interfaces (opaque pointers)
 
  - [ ] user input error handling

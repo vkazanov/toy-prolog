@@ -17,8 +17,7 @@ void search(Term* term, Rule* rules, size_t rule_count) {
     Rule* rule = rule_new("got(goal):-x(y)");
     rule_setgoal(rule, term);
 
-    Goal* goal = malloc(sizeof(Goal));
-    goal_init(goal, rule, NULL, NULL);
+    Goal* goal = goal_new(rule, NULL, NULL);;
 
     if (trace == true) {
         printf("Stack ");
@@ -80,8 +79,8 @@ void search(Term* term, Rule* rules, size_t rule_count) {
                 continue;
             }
 
-            Goal* child = malloc(sizeof(Goal));
-            goal_init(child, rule, c, NULL);
+            Goal* child = goal_new(rule, c, NULL);;
+
 
             if (unify(term, c->env, rule->head, child->env) == true) {
                 if (trace == true) {
