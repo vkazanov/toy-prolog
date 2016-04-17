@@ -33,6 +33,32 @@ size_t stack_depth(Stack* stack) {
     return stack->depth;
 }
 
+void mmanager_init(MemoryManager* mmanager) {
+    mmanager->obj_count = 0;
+}
+
+MemoryManager* mmanager_new() {
+    MemoryManager* mmanager = malloc(sizeof(MemoryManager));
+    mmanager_init(mmanager);
+    return mmanager;
+}
+
+void mmanager_destory(MemoryManager* mmanager) {
+    mmanager_destroyall(mmanager);
+    free(mmanager);
+}
+
+void mmanager_add(MemoryManager* mmanager, void* obj) {
+    mmanager->objects[mmanager->obj_count] = obj;
+    mmanager->obj_count++;
+}
+
+void mmanager_destroyall(MemoryManager* mmanager) {
+    for (size_t i = 0; i < mmanager->obj_count; i++) {
+        free(mmanager->objects[i]);
+    }
+}
+
 void trim(char* str) {
     char *pos = strchr(str, '\n');
     if (pos) {
