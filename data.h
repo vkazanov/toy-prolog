@@ -73,9 +73,10 @@ char* term_pred(Term* term);
 
 Goal* goal_new(Rule* rule, Goal* parent, Env* env);
 void goal_init(Goal* goal, Rule* rule, Goal* parent, Env* env);
+Goal* goal_copy(Goal* goal);
 void goal_destroy(Goal* rule);
 
+Goal* goal_parent(Goal* goal);
 void goal_print(Goal* goal);
-Goal* goal_copy(Goal* goal);
 
 #endif //DATA_H

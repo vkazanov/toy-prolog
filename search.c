@@ -17,7 +17,7 @@ void search(Term* term, Rule* rules, size_t rule_count) {
     Rule* rule = rule_new("got(goal):-x(y)");
     rule_setgoal(rule, term);
 
-    Goal* goal = goal_new(rule, NULL, NULL);;
+    Goal* goal = goal_new(rule, NULL, NULL);
 
     if (trace == true) {
         printf("Stack ");
@@ -42,7 +42,7 @@ void search(Term* term, Rule* rules, size_t rule_count) {
         /* Last goal in the rule? */
         if (c->inx >= c->rule->goal_count) {
             /* Original goal? */
-            if (c->parent == NULL) {
+            if (goal_parent(c) == NULL) {
                 /* We have a solution */
                 if (c->env->count > 0) {
                     env_print(c->env);
@@ -54,7 +54,7 @@ void search(Term* term, Rule* rules, size_t rule_count) {
             }
 
 
-            Goal* parent = goal_copy(c->parent);
+            Goal* parent = goal_copy(goal_parent(c));
             unify(c->rule->head, c->env,
                   parent->rule->goals[parent->inx], parent->env);
             parent->inx++;
@@ -79,8 +79,7 @@ void search(Term* term, Rule* rules, size_t rule_count) {
                 continue;
             }
 
-            Goal* child = goal_new(rule, c, NULL);;
-
+            Goal* child = goal_new(rule, c, NULL);
 
             if (unify(term, c->env, rule->head, child->env) == true) {
                 if (trace == true) {

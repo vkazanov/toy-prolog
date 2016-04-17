@@ -110,3 +110,5 @@
  - [ ] only expose interfaces (opaque pointers)
 
  - [ ] user input error handling
+
+ - [ ] README and upload

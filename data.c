@@ -270,7 +270,7 @@ void goal_init(Goal* goal, Rule* rule, Goal* parent, Env* env) {
     static size_t goal_id = 0;
     goal_id += 1;
     goal->id = goal_id;
-    goal->rule = rule;
+    goal->rule = rule_copy(rule);
     goal->parent = parent;
     goal->inx = 0;
     if (env == NULL) {
@@ -281,11 +281,25 @@ void goal_init(Goal* goal, Rule* rule, Goal* parent, Env* env) {
     }
 }
 
+Goal* goal_copy(Goal* orig_goal) {
+    Goal* new_goal = malloc(sizeof(Goal));
+    goal_init(new_goal, rule_copy(orig_goal->rule), NULL, orig_goal->env);
+    new_goal->inx = orig_goal->inx;
+    new_goal->env = env_copy(orig_goal->env);
+    new_goal->parent = orig_goal->parent != NULL ? goal_copy(orig_goal->parent) : NULL;
+    return new_goal;
+}
+
 void goal_destroy(Goal* goal) {
-    /* TODO: free rule? */
     /* TODO: free parent? */
     env_destroy(goal->env);
+    rule_destroy(goal->rule);
+    if (goal->parent) goal_destroy(goal->parent);
     free(goal);
+}
+
+Goal* goal_parent(Goal* goal) {
+    return goal->parent;
 }
 
 void goal_print(Goal* goal) {
@@ -294,13 +308,4 @@ void goal_print(Goal* goal) {
     printf(" ");
     printf("inx=%zu ", goal->inx);
     env_print(goal->env);
-}
-
-Goal* goal_copy(Goal* orig_goal) {
-    Goal* new_goal = malloc(sizeof(Goal));
-    goal_init(new_goal, rule_copy(orig_goal->rule), NULL, orig_goal->env);
-    new_goal->inx = orig_goal->inx;
-    new_goal->env = env_copy(orig_goal->env);
-    new_goal->parent = orig_goal->parent != NULL ? goal_copy(orig_goal->parent) : NULL;
-    return new_goal;
 }
