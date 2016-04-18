@@ -4,6 +4,8 @@
 #include "minunit.h"
 #include "data.h"
 #include "unify.h"
+#include "util.h"
+MemoryManager* cur_mmanager = NULL;
 
 int tests_run = 0;
 bool trace = false;

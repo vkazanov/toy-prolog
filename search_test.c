@@ -1,8 +1,10 @@
 #include <stdio.h>
 #include "data.h"
 #include "search.h"
+#include "util.h"
 
 bool trace = true;
+MemoryManager* cur_mmanager = NULL;
 
 int main() {
     Rule rules[256];

@@ -43,20 +43,22 @@ MemoryManager* mmanager_new() {
     return mmanager;
 }
 
-void mmanager_destory(MemoryManager* mmanager) {
+void mmanager_destroy(MemoryManager* mmanager) {
     mmanager_destroyall(mmanager);
     free(mmanager);
 }
 
-void mmanager_add(MemoryManager* mmanager, void* obj) {
+void mmanager_add(MemoryManager* mmanager, void* obj, void (destructor)(void*)) {
+    mmanager->destructors[mmanager->obj_count] = destructor;
     mmanager->objects[mmanager->obj_count] = obj;
     mmanager->obj_count++;
 }
 
 void mmanager_destroyall(MemoryManager* mmanager) {
     for (size_t i = 0; i < mmanager->obj_count; i++) {
-        free(mmanager->objects[i]);
+        (mmanager->destructors[i])(mmanager->objects[i]);
     }
+    mmanager->obj_count = 0;
 }
 
 void trim(char* str) {

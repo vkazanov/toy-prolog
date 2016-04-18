@@ -46,7 +46,7 @@ struct Goal {
 void env_init(Env* env);
 Env* env_new();
 Env* env_copy(Env* env_orig);
-void env_destroy(Env* env);
+void env_destroy(void* env);
 
 void env_print(Env* env);
 char* env_get(Env* env, char* key);
@@ -56,7 +56,7 @@ bool env_has(Env* env, char* key);
 void rule_init(Rule* rule, char* str);
 Rule* rule_new(char* str);
 Rule* rule_copy(Rule* rule);
-void rule_destroy(Rule* rule);
+void rule_destroy(void* rule);
 
 void rule_print(Rule* rule);
 void rule_setgoal(Rule* rule, Term* term);
@@ -64,7 +64,7 @@ void rule_setgoal(Rule* rule, Term* term);
 void term_init(Term* term, char* str);
 Term* term_new(char* str);
 Term* term_copy(Term* term);
-void term_destroy(Term* term);
+void term_destroy(void* term);
 
 void term_print(Term* term);
 size_t term_arg_count(Term* term);
@@ -74,7 +74,7 @@ char* term_pred(Term* term);
 Goal* goal_new(Rule* rule, Goal* parent, Env* env);
 void goal_init(Goal* goal, Rule* rule, Goal* parent, Env* env);
 Goal* goal_copy(Goal* goal);
-void goal_destroy(Goal* rule);
+void goal_destroy(void* rule);
 
 Goal* goal_parent(Goal* goal);
 void goal_print(Goal* goal);

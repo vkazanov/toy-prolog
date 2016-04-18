@@ -14,6 +14,8 @@
 #define MAX_RULE_COUNT 512
 
 bool trace = false;
+MemoryManager* cur_mmanager = NULL;
+
 static Rule rules[MAX_RULE_COUNT];
 static size_t rule_count = 0;
 
@@ -80,7 +82,16 @@ void proc_file(FILE* stream, char* prompt) {
         } else if (punc == '?') {
             Term term;
             term_init(&term, buf);
+
+            /* All objects will be managed within the search function call */
+            MemoryManager mmanager;
+            mmanager_init(&mmanager);
+            cur_mmanager = &mmanager;
+
             search(&term, rules, rule_count);
+
+            mmanager_destroyall(cur_mmanager);
+            cur_mmanager = NULL;
         } else {
             rule_init(&rules[rule_count], buf);
             rule_count++;

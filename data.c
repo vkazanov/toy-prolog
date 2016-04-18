@@ -7,6 +7,8 @@
 #include "data.h"
 #include "util.h"
 
+extern MemoryManager* cur_mmanager;
+
 void env_init(Env* env) {
     env->count = 0;
 }
@@ -14,6 +16,9 @@ void env_init(Env* env) {
 Env* env_new() {
     Env* env = malloc(sizeof(Env));
     env_init(env);
+    if (cur_mmanager != NULL) {
+        mmanager_add(cur_mmanager, env, env_destroy);
+    }
     return env;
 }
 
@@ -27,7 +32,8 @@ Env* env_copy(Env* env_orig) {
     return env_copy;
 }
 
-void env_destroy(Env* env) {
+void env_destroy(void* env_) {
+    Env* env = (Env*)env_;
     for (size_t i; i < env->count; i++) {
         free(env->keys[i]);
         free(env->values[i]);
@@ -119,6 +125,9 @@ void rule_init(Rule* rule, char* str) {
 
 Rule* rule_new(char* str) {
     Rule* rule = malloc(sizeof(Rule));
+    if (cur_mmanager != NULL) {
+        mmanager_add(cur_mmanager, rule, rule_destroy);
+    }
     rule_init(rule, str);
     return rule;
 }
@@ -131,10 +140,14 @@ Rule* rule_copy(Rule* orig_rule) {
         new_rule->goals[i] = term_copy(orig_rule->goals[i]);
     }
     new_rule->goal_count = orig_rule->goal_count;
+    if (cur_mmanager != NULL) {
+        mmanager_add(cur_mmanager, new_rule, rule_destroy);
+    }
     return new_rule;
 }
 
-void rule_destroy(Rule* rule) {
+void rule_destroy(void* rule_) {
+    Rule* rule = (Rule*) rule_;
     free(rule->str);
     free(rule);
 }
@@ -215,6 +228,9 @@ void term_init(Term* term, char* str) {
 Term* term_new(char* str) {
     Term* term = malloc(sizeof(Term));
     term_init(term, str);
+    if (cur_mmanager != NULL) {
+        mmanager_add(cur_mmanager, term, term_destroy);
+    }
     return term;
 }
 
@@ -222,7 +238,8 @@ Term* term_copy(Term* orig_term) {
     return term_new(orig_term->str);
 }
 
-void term_destroy(Term* term) {
+void term_destroy(void* term_) {
+    Term* term = (Term*) term_;
     free(term->str);
     free(term->pred);
     for (size_t i = 0; i < term->arg_count; i ++) {
@@ -259,6 +276,9 @@ char* term_pred(Term* term) {
 Goal* goal_new(Rule* rule, Goal* parent, Env* env) {
     Goal* goal = malloc(sizeof(Goal));
     goal_init(goal, rule, parent, env);
+    if (cur_mmanager != NULL) {
+        mmanager_add(cur_mmanager, goal, goal_destroy);
+    }
     return goal;
 }
 
@@ -286,7 +306,8 @@ Goal* goal_copy(Goal* orig_goal) {
     return new_goal;
 }
 
-void goal_destroy(Goal* goal) {
+void goal_destroy(void* goal_) {
+    Goal* goal = (Goal*) goal_;
     free(goal);
 }
 
