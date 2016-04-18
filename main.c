@@ -39,13 +39,14 @@ int main (int argc, char* argv[argc+1]) {
 }
 
 void proc_file(FILE* stream, char* prompt) {
-    char* buf = malloc(sizeof(char) * (MAX_LINE_LENGTH+1));
+    char buf[MAX_LINE_LENGTH] = {0};
+    char* buf_p = &buf[0];
     while (true) {
         if (strlen(prompt) != 0) {
             printf("%s", prompt);
         }
         size_t bytes_to_read = MAX_LINE_LENGTH;
-        if (getline(&buf, &bytes_to_read, stream) == -1) {
+        if (getline(&buf_p, &bytes_to_read, stream) == -1) {
             break;
         }
 
@@ -97,5 +98,4 @@ void proc_file(FILE* stream, char* prompt) {
             rule_count++;
         }
     }
-    free(buf);
 }

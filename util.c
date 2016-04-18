@@ -91,6 +91,7 @@ void remove_comments(char* buf) {
     if (regexec(&regex, buf, 1, regmatch, 0) == 0) {
         buf[regmatch[0].rm_so] = '\0';
     }
+    regfree(&regex);
 }
 
 void fail(const char* error) {

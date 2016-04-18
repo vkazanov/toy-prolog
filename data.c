@@ -34,7 +34,7 @@ Env* env_copy(Env* env_orig) {
 
 void env_destroy(void* env_) {
     Env* env = (Env*)env_;
-    for (size_t i; i < env->count; i++) {
+    for (size_t i = 0; i < env->count; i++) {
         free(env->keys[i]);
         free(env->values[i]);
     }
@@ -95,6 +95,7 @@ void rule_init(Rule* rule, char* str) {
     /* Get the goals string */
     char* goals_str = strtok_r(NULL, ":-", &saveptr);
     if (goals_str == NULL) {
+        free(tmp_str);
         /* No goals for this rule */
         return;
     }
@@ -299,10 +300,13 @@ void goal_init(Goal* goal, Rule* rule, Goal* parent, Env* env) {
 
 Goal* goal_copy(Goal* orig_goal) {
     Goal* new_goal = malloc(sizeof(Goal));
-    goal_init(new_goal, rule_copy(orig_goal->rule), NULL, orig_goal->env);
+    goal_init(new_goal, orig_goal->rule, NULL, orig_goal->env);
     new_goal->inx = orig_goal->inx;
     new_goal->env = env_copy(orig_goal->env);
     new_goal->parent = orig_goal->parent != NULL ? goal_copy(orig_goal->parent) : NULL;
+    if (cur_mmanager != NULL) {
+        mmanager_add(cur_mmanager, new_goal, goal_destroy);
+    }
     return new_goal;
 }
 

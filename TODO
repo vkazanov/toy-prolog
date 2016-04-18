@@ -107,11 +107,11 @@
 
    - [X] arena skeleton
 
-   - [ ] use the arena
+   - [X] use the arena
+
+   - [X] check if it actually works using debug print
 
    - [ ] don't forget to free the rules on the stack
-
-   - [ ] check if it actually works using debug print
 
  - [ ] run through Valgrind
 
