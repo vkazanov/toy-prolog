@@ -136,10 +136,6 @@ Rule* rule_copy(Rule* orig_rule) {
 
 void rule_destroy(Rule* rule) {
     free(rule->str);
-    free(rule->head);
-    for (size_t i = 0; i < rule->goal_count; i++) {
-        free(rule->goals[i]);
-    }
     free(rule);
 }
 
@@ -291,10 +287,6 @@ Goal* goal_copy(Goal* orig_goal) {
 }
 
 void goal_destroy(Goal* goal) {
-    /* TODO: free parent? */
-    env_destroy(goal->env);
-    rule_destroy(goal->rule);
-    if (goal->parent) goal_destroy(goal->parent);
     free(goal);
 }
 
