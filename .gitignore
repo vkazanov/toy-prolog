@@ -1,5 +1,5 @@
 *.o
-testc
+toy_prolog
 core
 unify_test
 search_test

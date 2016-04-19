@@ -1,0 +1,2 @@
+toy-prolog is an exercise in pure C. It doesn't do much apart from basic search
+and unification.

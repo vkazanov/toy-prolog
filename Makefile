@@ -11,7 +11,7 @@ CFLAGS ?= -Wall \
 
 SOURCES=data.c util.c unify.c search.c
 OBJECTS=$(SOURCES:.c=.o)
-EXECUTABLE=testc
+EXECUTABLE=toy_prolog
 
 all: $(EXECUTABLE)
 
